@@ -1,15 +1,15 @@
 type Query {
-	authors: [Author]!	
+	authors: [AuthorCto]!	
 }
 
-type Author {
+type AuthorCto {
 	id: Long
 	name: String
 	lastName: String
-	posts: [Post]
+	posts: [PostDto]
 }
 
-type Post {
+type PostDto {
 	id: Long
 	tittle: String
 	description: String
