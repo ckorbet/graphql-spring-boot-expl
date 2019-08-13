@@ -1,0 +1,16 @@
+type Query {
+	authors: [Author]!	
+}
+
+type Author {
+	id: Long
+	name: String
+	lastName: String
+	posts: [Post]
+}
+
+type Post {
+	id: Long
+	tittle: String
+	description: String
+}

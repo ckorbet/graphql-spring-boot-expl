@@ -1,126 +1,48 @@
 package com.carlos.torres.model.impl;
 
-import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-import com.carlos.torres.model.Author;
 import com.carlos.torres.model.Post;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-public class PostEntity implements Serializable, Post {
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name = "POST")
+@Data @NoArgsConstructor
+public class PostEntity implements Post {
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;	
 	
-	private Long id;
-	private String title;
-	private String description;
-	private Author author;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "post_id")
+	private Long id;	
+	@Column(name = "tittle")	
+	private String tittle;	
+	@Column(name = "description")
+	private String description;	
+	@ManyToOne
+    @JoinColumn(name = "author_ref_id")
+	private AuthorEntity author;
 	
-	public PostEntity() {
-		super();
-	}
-
-	public PostEntity(final Long id, final String title, final String description, final Author author) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.description = description;
-		this.author = author;
-	}
-
-	@Override
-	public final Long getId() {
-		return id;
-	}
-
-	@Override
-	public final void setId(final Long id) {
-		this.id = id;
-	}
-
-	@Override
-	public final String getTitle() {
-		return title;
-	}
-
-	@Override
-	public final void setTitle(final String title) {
-		this.title = title;
-	}
-
-	@Override
-	public final String getDescription() {
-		return description;
-	}
-
-	@Override
-	public final void setDescription(final String description) {
-		this.description = description;
-	}
-
-	@Override
-	public Author getAuthor() {
-		return author;
-	}
-
-	@Override
-	public final void setAuthor(final Author author) {
-		this.author = author;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((author == null) ? 0 : author.hashCode());
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		return result;
-	}
-
-	@Override
-	public final boolean equals(final Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		PostEntity other = (PostEntity) obj;
-		if (author == null) {
-			if (other.author != null)
-				return false;
-		} else if (!author.equals(other.author))
-			return false;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (title == null) {
-			if (other.title != null)
-				return false;
-		} else if (!title.equals(other.title))
-			return false;
-		return true;
-	}
-
-	@Override
-	public final String toString() {
-		return new StringBuilder("PostEntity [")
-		.append("id=").append(id)
-		.append(", title=").append(title)
-		.append(", description=").append(description)
-		.append(", author=").append(author)
-		.append("]")
-		.toString();
+	/**
+	 * Constructors to facilitate DTO-to-Entity and Entity-to-DTO transformations
+	 * @param postDto
+	 */
+	public PostEntity(final PostDto postDto) {
+		this.tittle = postDto.getTittle();
+		this.description = postDto.getDescription();
 	}
 	
 	@Override

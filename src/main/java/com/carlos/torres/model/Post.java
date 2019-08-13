@@ -1,21 +1,13 @@
 package com.carlos.torres.model;
 
-public interface Post extends Jsonable{
+import java.io.Serializable;
 
+
+public interface Post extends Jsonable, Serializable {	
 	Long getId();
-
-	void setId(Long id);
-
-	String getTitle();
-
-	void setTitle(String title);
-
+	void setId(Long id);	
+	String getTittle();
+	void setTittle(String tittle);	
 	String getDescription();
-
-	void setDescription(String description);
-
-	Author getAuthor();
-
-	void setAuthor(Author author);
-
+	void setDescription(String description);	
 }

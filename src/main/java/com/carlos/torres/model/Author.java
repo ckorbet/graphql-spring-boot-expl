@@ -1,24 +1,12 @@
 package com.carlos.torres.model;
 
-import java.util.List;
+import java.io.Serializable;
 
-import com.carlos.torres.model.impl.PostEntity;
-
-public interface Author extends Jsonable {
-
+public interface Author extends Serializable, Jsonable {	
 	Long getId();
-
-	void setId(Long id);
-
+	void setId(Long id);	
 	String getName();
-
-	void setName(String name);
-
+	void setName(String name);	
 	String getLastName();
-
-	void setLastName(String lastName);
-
-	List<PostEntity> getPost();
-
-	void setPost(List<PostEntity> post);
+	void setLastName(String lastName);	
 }
